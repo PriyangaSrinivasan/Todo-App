@@ -5,8 +5,15 @@ const cors = require("cors")
 require("dotenv").config()
 
 const app = express()
+const cors = require("cors");
 
-app.use(cors())
+app.use(
+  cors({
+    origin: "https://mernstack-todoapp.netlify.app/",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
 app.use(express.json())
 
 // mongoDb connection
