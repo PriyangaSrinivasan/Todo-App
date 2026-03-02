@@ -12,7 +12,7 @@ function App() {
   const [showAlert, setShowAlert] = useState(false);
 
   const fetchTodos = async () => {
-    const res = await axios.get("https://todo-app-9d41.onrender.com/todos");
+    const res = await axios.get("http://localhost:5000/api/todos");
     setTodos(res.data);
   };
 
@@ -29,7 +29,7 @@ function App() {
 
   const addTodo = async () => {
     if (!text.trim()) return;
-    await axios.post("https://todo-app-9d41.onrender.com/todos", { text });
+    await axios.post("http://localhost:5000/api/todos", { text });
     setText("");
     fetchTodos();
     setShowAlert(true); 
@@ -37,14 +37,14 @@ function App() {
 
   const deleteTodo = async (id) => {
     setTodos((prev) => prev.filter((t) => t._id !== id));
-    await axios.delete(`https://todo-app-9d41.onrender.com/todos/${id}`);
+    await axios.delete(`http://localhost:5000/api/todos/${id}`);
   };
 
   const toggleTodo = async (id, completed) => {
     setTodos((prev) =>
       prev.map((t) => (t._id === id ? { ...t, completed: !completed } : t))
     );
-    await axios.put(`https://todo-app-9d41.onrender.com/todos/${id}`, {
+    await axios.put(`http://localhost:5000/api/todos/${id}`, {
       completed: !completed,
     });
   };
@@ -55,7 +55,7 @@ function App() {
   };
 
   const saveEdit = async (id) => {
-    await axios.put(`https://todo-app-9d41.onrender.com/todos/${id}`, { text: editText });
+    await axios.put(`http://localhost:5000/api/todos/${id}`, { text: editText });
     setEditingId(null);
     setEditText("");
     fetchTodos();
@@ -75,7 +75,7 @@ function App() {
       )
     );
 
-    await axios.put(`https://todo-app-9d41.onrender.com/todos/${draggableId}`, {
+    await axios.put(`http://localhost:5000/api/todos/${draggableId}`, {
       completed: newCompleted,
     });
   };
